@@ -41,7 +41,7 @@ function checkFilesExist(files) {
 export default function (contractFiles, opts) {
   checkFilesExist(contractFiles);
   return solc(contractFiles)
-    .then(({ contracts }) => compile({ ...opts, contracts }))
+    .then(contracts => compile({ ...opts, contracts }))
     .catch(() => {
       console.error(`solmd: Failed to compile contracts at ${contractFiles}`); // eslint-disable-line no-console
       process.exit(1);
