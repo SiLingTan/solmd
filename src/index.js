@@ -4,25 +4,9 @@ import {
 } from './constants';
 import build from './build';
 
-const methods = {
-  build,
-};
-
-function populateArguments(passed) {
-  const defaults = {
-    dest: DEFAULT_DEST,
-    'no-toc': DEFAULT_NO_TOC,
-  };
-
-  return { ...defaults, ...passed };
+export default function solmd(contracts, { dest = DEFAULT_DEST, noToc = DEFAULT_NO_TOC }) {
+  return build(contracts, {
+    dest,
+    noToc,
+  });
 }
-
-const wrappedMethods = {};
-Object.keys(methods).forEach((key) => {
-  wrappedMethods[key] = (args) => {
-    const newArgs = populateArguments(args);
-    return methods[key](newArgs);
-  };
-});
-
-export default wrappedMethods;

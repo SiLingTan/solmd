@@ -2,7 +2,8 @@
 import fs from 'fs';
 import path from 'path';
 import minimist from 'minimist';
-import * as Solmd from '../index';
+
+import solmd from '../index';
 
 const args = minimist(process.argv.slice(2));
 
@@ -20,7 +21,11 @@ parameters:
   `);
   process.exit();
 } else {
-  Solmd.default.build(args)
+  const contracts = args._;
+  solmd(contracts, {
+    dest: args.dest,
+    noToc: args['no-toc'],
+  })
     .catch((err) => {
       console.error(err); // eslint-disable-line no-console
       process.exit(1);
