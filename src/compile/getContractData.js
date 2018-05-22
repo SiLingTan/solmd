@@ -9,9 +9,7 @@ function formatSource(contractFiles) {
 
 export default function (contractFiles) {
   const sources = formatSource(contractFiles);
-  return new Promise((resolve) => {
-    const rawOutput = compileContracts(sources);
-    const formattedOutput = formatContractOutput(rawOutput);
-    resolve(formattedOutput);
-  });
+  const rawOutput = compileContracts(sources);
+  const formattedOutput = formatContractOutput(rawOutput);
+  return formattedOutput;
 }

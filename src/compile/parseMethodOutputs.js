@@ -1,4 +1,4 @@
-export default function parseOutputs({ devDocs, method }) {
+export default function parseMethodOutputs({ devDocs, method }) {
   let outputs = [];
   try {
     if (typeof devDocs.return !== 'undefined') {

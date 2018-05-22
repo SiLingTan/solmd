@@ -1,32 +1,5 @@
 import fs from 'fs';
-import parseAbi from './parse-abi';
-import solc from './solc';
-
-function getContractMetadata(contract) {
-  const { fileName } = contract;
-  const { devdoc } = contract;
-  const { author, title } = devdoc;
-  return {
-    fileName: fileName.replace(process.env.PWD, ''),
-    author,
-    title,
-  };
-}
-
-function compile({ contracts }) {
-  const data = [];
-  Object.keys(contracts).forEach((contractName) => {
-    const contract = contracts[contractName];
-    const metadata = getContractMetadata(contract);
-    data.push({
-      ...metadata,
-      name: contractName,
-      abiDocs: parseAbi(contract),
-    });
-  });
-
-  return data;
-}
+import getContractData from './getContractData';
 
 function checkFilesExist(files) {
   files.forEach((file) => {
@@ -38,12 +11,7 @@ function checkFilesExist(files) {
   });
 }
 
-export default function (contractFiles, opts) {
+export default function (contractFiles) {
   checkFilesExist(contractFiles);
-  return solc(contractFiles)
-    .then(contracts => compile({ ...opts, contracts }))
-    .catch(() => {
-      console.error(`solmd: Failed to compile contracts at ${contractFiles}`); // eslint-disable-line no-console
-      process.exit(1);
-    });
+  return getContractData(contractFiles);
 }

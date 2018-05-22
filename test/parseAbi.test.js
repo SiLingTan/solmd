@@ -1,6 +1,6 @@
 /* eslint-env node, mocha */
 
-import parseAbi from '../src/compile/parse-abi';
+import parseAbi from '../src/compile/parseAbi';
 
 describe('parseAbi', () => {
   it('should work with empty contract', () => {

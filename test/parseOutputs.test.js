@@ -1,9 +1,9 @@
 /* eslint-env node, mocha */
 
-import parseOutputs from '../src/compile/parseOutputs';
+import parseMethodOutputs from '../src/compile/parseMethodOutputs';
 
-describe('parseOutputs', () => {
+describe('parseMethodOutputs', () => {
   it('should notify user when return value is invalid', () => {
-    parseOutputs({ devDocs: { return: '' }, method: { name: 'testMethod' } });
+    parseMethodOutputs({ devDocs: { return: '' }, method: { name: 'testMethod' } });
   });
 });

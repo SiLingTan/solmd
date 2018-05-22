@@ -1,17 +1,23 @@
+import path from 'path';
+import parseAbi from './parseAbi';
+
+function getFilename(fileWithContract) {
+  return fileWithContract.split(':')[0];
+}
+
 export default function formatContractOutput({ contracts }) {
-  return Object.keys(contracts).reduce((accum, k) => {
-    const file = k.split(':')[0];
-    const fileFragments = file.split('/');
-    const contractName = fileFragments[fileFragments.length - 1].split('.sol')[0];
-    const contract = contracts[k][contractName];
-    const fileName = `${process.env.PWD}/${k.split(':')[0]}`;
+  return Object.keys(contracts).reduce((accum, fileWithContract) => {
+    const filename = getFilename(fileWithContract);
+    const name = path.basename(filename, '.sol');
+    const contract = contracts[fileWithContract][name];
+    const { title, author } = contract.devdoc;
     return Object.assign(accum, {
-      [contractName]: {
+      [name]: {
         ...contract,
-        fileName,
-        abi: contract.abi,
-        devdoc: contract.devdoc,
-        userdoc: contract.userdoc,
+        name,
+        title,
+        author,
+        abiDocs: parseAbi(contract),
       },
     });
   }, {});
