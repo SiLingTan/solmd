@@ -8,7 +8,7 @@ Generate lightweight markdown documentation for Solidity contracts.
 
 ```
 npm install -g solmd
-solmd <src> [--dest <target>]
+solmd <src> [--dest] <target>
 ```
 
 Output will default to `sol.md`;
